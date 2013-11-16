@@ -82,24 +82,36 @@ int linkedlist_size(linkedlist* list){
 	return list->size;
 }
 iterator* linkedlist_iterator(linkedlist* list){
-	//not implemented yet
-	void *a;
-	return (iterator*)a;
+	iterator* iter=malloc(sizeof(iterator));
+	iter->list=list;
+	iter->position=0;
+	iter->current=list->head;
+	return iter;
 }
-void* linkedlist_iteratornext(iterator iter){
-	//not implemented yet
-	void *a;
-	return a;
+int linkedlist_iteratorhasnext(iterator* iter){
+	return (iter->position<iter->list->size);
 }
-void* linkedlist_iteratorprev(iterator iter){
-	//not implemented yet
-	void *a;
-	return a;
+int linkedlist_iteratorhasprev(iterator* iter){
+	return (iter->position>0);
 }
-void linkedlist_iteratoradd(iterator iter){
+void* linkedlist_iteratornext(iterator* iter){
+	void* value=iter->current->next->data;
+	if(!value) fprintf(stderr,"I don't have a next");
+	iter->current=iter->current->next;
+	iter->position++;	
+	return value;
+}
+void* linkedlist_iteratorprev(iterator* iter){
+	void* value=iter->current->data;
+	if(!value) fprintf(stderr,"I don't have a prev");
+	else iter->current=iter->current->prev;	
+	iter->position--;	
+	return value;
+}
+void linkedlist_iteratoradd(iterator* iter){
 	//not implemented yet
 }
-void* linkedlist_iteratorrm(iterator iter){
+void* linkedlist_iteratorrm(iterator* iter){
 	//not implemented yet
 	void* a;
 	return a;
@@ -115,6 +127,6 @@ void linkedlist_free(linkedlist* list){
 	node_free(list->tail);
 	free(list);
 }	
-void linkedlist_freeiter(iterator iter){
-	//not implemented yet
+void linkedlist_freeiter(iterator* iter){
+	free(iter);
 }
