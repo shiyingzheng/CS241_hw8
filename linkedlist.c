@@ -2,6 +2,13 @@
  * A doubly linked list
  */
 #include "linkedlist.h"
+/*
+ * Initialize a node
+ * Takes in an integer datasize, which is the size of the data we are storing, 
+ * and a void pointer to the element stored.
+ * Copies the data into the node.
+ * Returns a pointer to the initialized node.
+ */
 node* node_init(int datasize, void* data){
 	node* n=malloc(sizeof(node));
 	if(!n) fprintf(stderr,"not enough memory");
@@ -11,10 +18,19 @@ node* node_init(int datasize, void* data){
 	n->datasize=datasize;
 	return n;
 }
+/*
+ * Frees a node. Takes in a node pointer.
+ */
 void node_free(node* n){
 	free(n->data);
 	free(n);
 }
+/*
+ * Initializes a linkedlist.
+ * Takes in an integer datasize, which is the size of each element.
+ * Returns a pointer to the list.
+ * You should use linkedlist_free(linkedlist* list) to free the list when you are done with it.
+ */
 linkedlist* linkedlist_init(int datasize){
 	linkedlist* list=malloc(sizeof(linkedlist));
 	if(!list) fprintf(stderr, "not enough memory");
@@ -28,6 +44,10 @@ linkedlist* linkedlist_init(int datasize){
 	list->tail->next=NULL;
 	return list;
 }
+/*
+ * Adds an element to the front of the list.
+ * Takes a pointer to the list and a void pointer to the element.
+ */
 void linkedlist_addfront(linkedlist* list, void* data){
 	if(!data) fprintf(stderr,"Nullpointer; trying to add NULL data");
 	node* newnode=node_init(list->datasize,data);
@@ -38,6 +58,10 @@ void linkedlist_addfront(linkedlist* list, void* data){
 	tmp->prev=newnode;
 	list->size++;
 }
+/*
+ * Adds an element to the end of the list.
+ * Takes a pointer to the list and a void pointer to the element.
+ */
 void linkedlist_addend(linkedlist* list, void* data){
 	if(!data) fprintf(stderr,"Nullpointer; trying to add NULL data");
         node* newnode=node_init(list->datasize,data);
@@ -48,6 +72,12 @@ void linkedlist_addend(linkedlist* list, void* data){
         tmp->next=newnode;
 	list->size++;
 }
+/*
+ * Gets the front element of the linkedlist.
+ * Takes in a pointer to the list.
+ * Returns a void pointer to the element. 
+ * It is the actual element stored in the list instead of a copy of the element.
+ */
 void* linkedlist_getfront(linkedlist* list){
 	if(!list->size){ 
 		fprintf(stderr,"Cannot get from an empty list");
@@ -56,6 +86,12 @@ void* linkedlist_getfront(linkedlist* list){
 	void* data=list->head->next->data;
 	return data;
 }
+/*
+ * Gets the end element of the linkedlist.
+ * Takes in a pointer to the list.
+ * Returns a void pointer to the element. 
+ * It is the actual element stored in the list instead of a copy of the element.
+ */
 void* linkedlist_getend(linkedlist* list){
 	if(!list->size){ 
 		fprintf(stderr,"Cannot get from an empty list");
@@ -64,6 +100,13 @@ void* linkedlist_getend(linkedlist* list){
 	void* data=list->tail->prev->data;
 	return data;
 }
+/*
+ * Removes the element at the front of the list.
+ * Takes in a pointer to the list.
+ * If there is no element in the list, returns NULL.
+ * Otherwise, returns the data of the removed element.
+ * You should free the element when you are done with it.
+ */
 void* linkedlist_rmfront(linkedlist* list){
 	if(!list->size){
 		fprintf(stderr,"can't remove from a list of size 0");
@@ -79,6 +122,13 @@ void* linkedlist_rmfront(linkedlist* list){
 	list->size--;
 	return value;
 }
+/*
+ * Removes the element at the end of the list.
+ * Takes in a pointer to the list.
+ * If there is no element in the list, returns NULL.
+ * Otherwise, returns the data of the removed element.
+ * You should free the element when you are done with it.
+ */
 void* linkedlist_rmend(linkedlist* list){
 	if(!list->size){
 		fprintf(stderr,"can't remove from a list of size 0");
@@ -94,29 +144,57 @@ void* linkedlist_rmend(linkedlist* list){
 	list->size--;
 	return value;
 }
+/*
+ * Takes in a pointer to the list.
+ * Returns the size of the linkedlist as an integer.
+ */
 int linkedlist_size(linkedlist* list){
 	return list->size;
 }
+/*
+ * Generates an iterator over a list.
+ * Takes in a pointer to the list.
+ * Returns a pointer to the iterator.
+ * You should call linkedlist_freeiter(iterator* iter) when you are done with the iterator.
+ */
 iterator* linkedlist_iterator(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
 	iter->list=list;
-	iter->position=0;
+	iter->position=0; //position is the next element element that will be returned by calling iteratornext(iterator* iter)
 	iter->current=list->head;
 	return iter;
 }
+/*
+ * Generates an iterator over a list at the end of the list.
+ * Takes in a pointer to the list.
+ * Returns a pointer to the iterator.
+ * You should call linkedlist_freeiter(iterator* iter) when you are done with the iterator.
+ */
 iterator* linkedlist_iteratorend(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
 	iter->list=list;
-	iter->position=list->size-1;
+	iter->position=list->size; //position is the next element element that will be returned by calling iteratornext(iterator* iter),
+								//which is NULL at the end of the list.
 	iter->current=list->tail->prev;
 	return iter;
 }
+/*
+ * Returns 0 if there is not a next element in the iterator.
+ * Otherwise, returns non-zero value.
+ */
 int linkedlist_iteratorhasnext(iterator* iter){
-	return (iter->position<iter->list->size);
+	return (iter->position < iter->list->size);
 }
+/*
+ * Returns 0 if there is not a previous element in the iterator.
+ * Otherwise, returns non-zero value.
+ */
 int linkedlist_iteratorhasprev(iterator* iter){
-	return (iter->position>0);
+	return (iter->position > 0);
 }
+/*
+ * Returns a pointer to the next element in the iterator.
+ */
 void* linkedlist_iteratornext(iterator* iter){
 	void* value=iter->current->next->data;
 	if(!value) fprintf(stderr,"I don't have a next");
@@ -124,6 +202,9 @@ void* linkedlist_iteratornext(iterator* iter){
 	iter->position++;	
 	return value;
 }
+/*
+ * Returns a pointer to the previous element in the iterator.
+ */
 void* linkedlist_iteratorprev(iterator* iter){
 	void* value=iter->current->data;
 	if(!value) fprintf(stderr,"I don't have a prev");
@@ -139,6 +220,10 @@ void* linkedlist_iteratorrm(iterator* iter){
 	void* a;
 	return a;
 }
+/*
+ * Frees the linkedlist and all the elements in it.
+ * Takes a pointer to the list.
+ */
 void linkedlist_free(linkedlist* list){
 	node* freethis=list->head;
 	node* tmp;
@@ -150,6 +235,10 @@ void linkedlist_free(linkedlist* list){
 	node_free(list->tail);
 	free(list);
 }	
+/*
+ * Free the linkedlist iterator.
+ * Takes a pointer to the iterator.
+ */
 void linkedlist_freeiter(iterator* iter){
 	free(iter);
 }
