@@ -110,6 +110,7 @@ iterator* linkedlist_iteratorend(linkedlist* list){
 	iter->position=list->size-1;
 	iter->current=list->tail->prev;
 	return iter;
+}
 int linkedlist_iteratorhasnext(iterator* iter){
 	return (iter->position<iter->list->size);
 }
