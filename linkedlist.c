@@ -48,6 +48,22 @@ void linkedlist_addend(linkedlist* list, void* data){
         tmp->next=newnode;
 	list->size++;
 }
+void* linkedlist_getfront(linkedlist* list){
+	if(!list->size){ 
+		fprintf(stderr,"Cannot get from an empty list");
+		return NULL;	
+	}
+	void* data=list->head->next->data;
+	return data;
+}
+void* linkedlist_getend(linkedlist* list){
+	if(!list->size){ 
+		fprintf(stderr,"Cannot get from an empty list");
+		return NULL;	
+	}
+	void* data=list->tail->prev->data;
+	return data;
+}
 void* linkedlist_rmfront(linkedlist* list){
 	if(!list->size){
 		fprintf(stderr,"can't remove from a list of size 0");
@@ -88,6 +104,12 @@ iterator* linkedlist_iterator(linkedlist* list){
 	iter->current=list->head;
 	return iter;
 }
+iterator* linkedlist_iteratorend(linkedlist* list){
+	iterator* iter=malloc(sizeof(iterator));
+	iter->list=list;
+	iter->position=list->size-1;
+	iter->current=list->tail->prev;
+	return iter;
 int linkedlist_iteratorhasnext(iterator* iter){
 	return (iter->position<iter->list->size);
 }

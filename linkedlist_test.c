@@ -29,4 +29,11 @@ int main(){
 	printf("\n");
 	linkedlist_free(list);
 	linkedlist_freeiter(iter);
+	list=linkedlist_init(sizeof(char*));
+	char* string="This is a string";
+	char* string2="meow";
+	linkedlist_addend(list,&string);
+	linkedlist_addend(list,&string2);
+	printf("%s %s\n",*(char**)linkedlist_getfront(list),*(char**)linkedlist_getend(list));
+	linkedlist_free(list);
 }
