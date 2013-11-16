@@ -28,7 +28,7 @@ extern void* linkedlist_rmfront(linkedlist* list);
 extern void* linkedlist_rmend(linkedlist* list);
 extern int linkedlist_size(linkedlist* list);
 extern iterator* linkedlist_iterator(linkedlist* list);
-extern iterator* linkedlist_iteratorend(linkedlist* list)
+extern iterator* linkedlist_iteratorend(linkedlist* list);
 extern int linkedlist_iteratorhasnext(iterator* iter);
 extern int linkedlist_iteratorhasprev(iterator* iter);
 extern void* linkedlist_iteratornext(iterator* iter);
