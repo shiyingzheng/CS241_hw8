@@ -5,6 +5,8 @@
 int main(){
 	int n=50;
 	int q;
+
+	//test addend and removeend
 	linkedlist* list=linkedlist_init(sizeof(int));
 	for(int i=0;i<n;i++){
 		q=i+n;
@@ -17,6 +19,9 @@ int main(){
 	}
 	printf("\n");
 	linkedlist_free(list);
+
+
+	//test the iterator
 	list=linkedlist_init(sizeof(int));
 	for(int i=0;i<n;i++){
 		q=i+n;
@@ -29,6 +34,9 @@ int main(){
 	printf("\n");
 	linkedlist_free(list);
 	linkedlist_freeiter(iter);
+
+
+	//test the getfront and getend
 	list=linkedlist_init(sizeof(char*));
 	char* string="This is a string";
 	char* string2="meow";
