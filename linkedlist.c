@@ -160,7 +160,7 @@ int linkedlist_size(linkedlist* list){
 iterator* linkedlist_iterator(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
 	iter->list=list;
-	iter->position=0; //position is the next element element that will be returned by calling iteratornext(iterator* iter)
+	iter->position=0; //position is the index of the next element element that will be returned by calling iteratornext(iterator* iter)
 	iter->current=list->head;
 	return iter;
 }
@@ -173,9 +173,9 @@ iterator* linkedlist_iterator(linkedlist* list){
 iterator* linkedlist_iteratorend(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
 	iter->list=list;
-	iter->position=list->size; //position is the next element element that will be returned by calling iteratornext(iterator* iter),
+	iter->position=list->size; //position is the index of the next element element that will be returned by calling iteratornext(iterator* iter),
 								//which is NULL at the end of the list.
-	iter->current=list->tail->prev;
+	iter->current=list->tail;
 	return iter;
 }
 /*

@@ -4,20 +4,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-typedef struct node {
-	void* data;
-	unsigned int datasize;
-	struct node *next, *prev;
+/* A type definition of the node struct */
+typedef struct node{
+	void* data; //a pointer to the data stored in the node
+	unsigned int datasize; //the size of the data
+	struct node *next, *prev; //pointers to the next and the previous node
 } node;
+/* A type definition of the linkedlist struct*/
 typedef struct linkedlist{
-	unsigned int datasize;
-	unsigned int size;
-	struct node *head, *tail;
+	unsigned int datasize; //the size of the data in each element
+	unsigned int size; //the number of elements in the linkedlist
+	struct node *head, *tail; //the first and last element in the linkedlist
 } linkedlist;
+/* A type definition of the iterator struct */
 typedef struct iterator{
-	linkedlist* list;
-	int position;
-	node* current;
+	linkedlist* list; //the list iterated on
+	int position; //the index of the next element that will be returned by calling iteratornext(iterator* iter)
+	node* current; //the element that is before the element that will be returned by calling iteratornext(iterator* iter), 
+	               //or the element that will be returned by calling linkedlist_iteratorprev(iterator* iter)
 } iterator;
 extern linkedlist* linkedlist_init(int datasize);
 extern void linkedlist_addfront(linkedlist* list, void* data);
