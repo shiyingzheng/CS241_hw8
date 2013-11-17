@@ -6,6 +6,7 @@ int main(){
 	int n=50;
 	int q;
 
+	// 1.
 	//test addend and removeend
 	linkedlist* list=linkedlist_init(sizeof(int));
 	for(int i=0;i<n;i++){
@@ -20,21 +21,33 @@ int main(){
 	printf("\n");
 	linkedlist_free(list);
 
-
-	//test the iterator
+	// 2.
+	//test the iterators
 	list=linkedlist_init(sizeof(int));
 	for(int i=0;i<n;i++){
 		q=i+n;
 		linkedlist_addend(list,&q);
 	}
-	iterator* iter=linkedlist_iterator(list);
+	iterator* iter=linkedlist_iterator(list); //iterate from the start of the list
 	while(linkedlist_iteratorhasnext(iter)){
 		printf("%d ",*(int*)linkedlist_iteratornext(iter));
 	}
 	printf("\n");
-	linkedlist_free(list);
 	linkedlist_freeiter(iter);
+	linkedlist_free(list);
 
+	list=linkedlist_init(sizeof(int));
+	for(int i=0;i<n;i++){
+		q=i+n;
+		linkedlist_addend(list,&q);
+	}
+	iterator* iterend=linkedlist_iteratorend(list); //iterate from the back of the list
+	while(linkedlist_iteratorhasprev(iterend)){
+		printf("%d ", *(int*)linkedlist_iteratorprev(iterend));
+	}
+	printf("\n");
+	linkedlist_freeiter(iterend);
+	linkedlist_free(list);
 
 	//test the getfront and getend
 	list=linkedlist_init(sizeof(char*));

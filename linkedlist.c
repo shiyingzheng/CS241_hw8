@@ -175,7 +175,7 @@ iterator* linkedlist_iteratorend(linkedlist* list){
 	iter->list=list;
 	iter->position=list->size; //position is the index of the next element element that will be returned by calling iteratornext(iterator* iter),
 								//which is NULL at the end of the list.
-	iter->current=list->tail;
+	iter->current=list->tail->prev;
 	return iter;
 }
 /*
