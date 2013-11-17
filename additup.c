@@ -2,6 +2,10 @@
 #include <ctype.h>
 #define LINE_MAX 1024
 int eof=0;
+/*
+ * Getting the first digits from a line until the first non digit, and turn them into a bigint, ignoring empty lines
+ * Returns a pointer to a bigint
+ */
 bigint* getbigint(){
 	bigint* newint;
 	int c;
@@ -33,6 +37,9 @@ bigint* getbigint(){
 	if(!linkedlist_size(newint->digit_list)) bigint_add_digit(newint,0);
 	return newint;		
 }
+/*
+ * The main method of the program
+ */
 int main(){
 	bigint* sum=bigint_init(1);
 	bigint_add_digit(sum,0);
