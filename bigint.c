@@ -53,6 +53,14 @@ int bigint_abscmp (bigint * num1, bigint* num2) {
 	return a;
 }
 /*
+ * Checks if the first digit is zero.
+ * Takes in a pointer to a bigint.
+ * Returns non-zero value if true, and zero if false.
+ */
+int bigint_iszero(bigint* num){
+	return 0==*(char*)linkedlist_getfront(num->digit_list);
+}
+/*
  * Adds the absolute values of two bigints of the same sign.
  * Takes in two pointers to two bigints.
  * Returns a pointer to the bigint which is the sum.
@@ -142,7 +150,7 @@ bigint* minus (bigint* num1, bigint* num2) { //so that we can take care of the c
 	}
 
 	difiter=linkedlist_iterator(dif->digit_list);
-	while (linkedlist_iteratorhasnext(difiter) && !(a=*(char*)linkedlist_iteratornext(difiter))){
+	while (linkedlist_iteratorhasnext(difiter) && bigint_iszero(dif)) {
 		b=linkedlist_rmfront(dif->digit_list);
 		free(b);
 	}
@@ -190,9 +198,6 @@ bigint* add (bigint* num1, bigint* num2){
 	}
 
 	return sum;
-}
-int bigint_iszero(bigint* num){
-	return 0==*(char*)linkedlist_getfront(num->digit_list);
 }
 /*
  * Prints a bigint
