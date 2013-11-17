@@ -6,6 +6,9 @@ bigint* getbigint(){
 	bigint* newint;
 	int c;
 	if((c=getchar())==EOF) newint=bigint_init(1);
+	while(c=='\n'){
+		c=getchar();
+	}
 	while(c!='\n'&&c!=EOF){
 		while(isspace(c)){
 			c=getchar();
