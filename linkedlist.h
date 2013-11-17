@@ -37,6 +37,7 @@ extern int linkedlist_iteratorhasnext(iterator* iter);
 extern int linkedlist_iteratorhasprev(iterator* iter);
 extern void* linkedlist_iteratornext(iterator* iter);
 extern void* linkedlist_iteratorprev(iterator* iter);
+//iteratoradd and iteratorrm not implemented
 extern void linkedlist_iteratoradd(iterator* iter);
 extern void* linkedlist_iteratorrm(iterator* iter);
 extern void linkedlist_free(linkedlist* list);
