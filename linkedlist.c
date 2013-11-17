@@ -11,9 +11,9 @@
  */
 node* node_init(int datasize, void* data){
 	node* n=malloc(sizeof(node));
-	if(!n) fprintf(stderr,"not enough memory");
+	if(!n) exit(EXIT_FAILURE);;
 	n->data=malloc(datasize);
-	if(!n->data) fprintf(stderr, "not enough memory");
+	if(!n->data) exit(EXIT_FAILURE);;
 	if(data) memcpy(n->data, data, datasize);
 	n->datasize=datasize;
 	return n;
@@ -33,7 +33,7 @@ void node_free(node* n){
  */
 linkedlist* linkedlist_init(int datasize){
 	linkedlist* list=malloc(sizeof(linkedlist));
-	if(!list) fprintf(stderr, "not enough memory");
+	if(!list) exit(EXIT_FAILURE);;
 	list->size=0;
 	list->datasize=datasize;
 	list->head=node_init(datasize,NULL);
@@ -114,7 +114,7 @@ void* linkedlist_rmfront(linkedlist* list){
 	}
 	node* removethis=list->head->next;
 	void* value=malloc(list->datasize);
-	if(!value) fprintf(stderr,"ran out of memory");
+	if(!value) exit(EXIT_FAILURE);;
 	memcpy(value,removethis->data,list->datasize);
 	list->head->next=removethis->next;
 	removethis->next->prev=list->head;
@@ -136,7 +136,7 @@ void* linkedlist_rmend(linkedlist* list){
 	}
 	node* removethis=list->tail->prev;
 	void* value=malloc(list->datasize);
-	if(!value) fprintf(stderr,"ran out of memory");
+	if(!value) exit(EXIT_FAILURE);;
 	memcpy(value,removethis->data,list->datasize);
 	list->tail->prev=removethis->prev;
 	removethis->prev->next=list->tail;
@@ -159,6 +159,7 @@ int linkedlist_size(linkedlist* list){
  */
 iterator* linkedlist_iterator(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
+	if(!iter) exit(EXIT_FAILURE);
 	iter->list=list;
 	iter->position=0; //position is the index of the next element element that will be returned by calling iteratornext(iterator* iter)
 	iter->current=list->head;
@@ -172,6 +173,7 @@ iterator* linkedlist_iterator(linkedlist* list){
  */
 iterator* linkedlist_iteratorend(linkedlist* list){
 	iterator* iter=malloc(sizeof(iterator));
+	if(!iter) exit(EXIT_FAILURE);
 	iter->list=list;
 	iter->position=list->size; //position is the index of the next element element that will be returned by calling iteratornext(iterator* iter),
 								//which is NULL at the end of the list.
