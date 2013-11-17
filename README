@@ -4,3 +4,29 @@ Shiying Zheng and Ben Stern
 November 15
 
 Expected time spent on the assignment: 8 hours
+Actual time spent: 10 hours
+
+additup: adds up a sequence of integers, one integer per line
+
+***********************************************
+We have implemented functions to take care of 
+NEGATIVE integers so that we can do:
+
+$ ./additup
+123
+TOTAL: 123
+-123
+TOTAL: 0
+-1234
+TOTAL: -1234
+-5
+TOTAL: -1239
+11111
+TOTAL: 9872
+
+Please consider giving us extra credits!
+***********************************************
+
+Addtional functions to take care of negative numbers are in bigint.c:
+int bigint_abscmp (bigint * num1, bigint* num2);
+bigint* minus (bigint* num1, bigint* num2);
